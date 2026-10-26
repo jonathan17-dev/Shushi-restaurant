@@ -1,0 +1,96 @@
+@startuml activity
+title Activiteitendiagram - Sushirestaurant 
+
+|Klant|
+start
+:Restaurant bellen of website openen;
+
+' --- Reserveren: is er plek vrij? ---
+repeat
+  |Klant|
+  :Gewenste dag en tijdstip doorgeven;
+  |Receptioniste|
+  :Beschikbaarheid tafels controleren;
+  if (Plek vrij op gewenste dag en tijdstip?) then (ja)
+  else (nee)
+    :Klant melden dat er geen plek is;
+    |Klant|
+    if (Ander tijdstip kiezen?) then (ja)
+    else (nee)
+      :Afzien van reservering;
+      stop
+    endif
+  endif
+|Receptioniste|
+repeat while (Plek gevonden?) is (nee) not (ja)
+
+|Klant|
+:Naam en telefoonnummer opgeven;
+|Receptioniste|
+:Reservering vastleggen;
+
+' --- Bezoek aan het restaurant ---
+|Klant|
+:Op afgesproken tijd naar restaurant komen;
+|Receptioniste|
+:Klant ontvangen;
+:Reservering opzoeken;
+|Ober|
+:Klant naar tafel brengen;
+:Menukaart geven;
+
+' --- Bestellen, bereiden en serveren ---
+repeat
+  |Klant|
+  :Sushi (en eventueel drinken) kiezen;
+  |Ober|
+  :Bestelling opnemen;
+  :Bestelling doorgeven aan keuken;
+  |Kok|
+  :Voorraad controleren;
+  if (Is alle sushi op voorraad?) then (ja)
+    fork
+      |Kok|
+      :Sushi bereiden;
+    fork again
+      |Ober|
+      :Drinken inschenken (indien besteld);
+    end fork
+    |Ober|
+    :Eten en drinken serveren;
+    |Klant|
+    :Sushi opeten en drinken opdrinken;
+  else (nee)
+    |Kok|
+    :Ober melden welke sushi niet op voorraad is;
+    |Ober|
+    :Klant vragen een andere keuze te maken;
+  endif
+|Klant|
+repeat while (Nog iets bestellen?) is (ja) not (nee)
+
+' --- Afrekenen ---
+|Klant|
+:Naar de receptie gaan om af te rekenen;
+|Receptioniste|
+:Rekening opmaken;
+:Totaalbedrag noemen;
+|Klant|
+switch (Hoe betaalt de klant?)
+case (Pin)
+  :Betalen met pinpas;
+case (Contant)
+  :Contant betalen;
+  |Receptioniste|
+  :Wisselgeld teruggeven;
+case (Creditcard)
+  |Klant|
+  :Betalen met creditcard;
+endswitch
+|Receptioniste|
+:Betaling controleren en bon geven;
+|Klant|
+:Restaurant verlaten;
+stop
+
+@enduml

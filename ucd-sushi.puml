@@ -1,0 +1,21 @@
+@startuml Usecase diagram
+skinparam actorstyle awesome
+left to right direction
+
+title Sushi restaurant
+
+:Klant:--(sushi bestellen)
+:Klant:--(drinken bestellen)
+:Klant:--(sushi eten)
+:Klant:--(betalen)
+
+
+:receptionist:--(betaling afhandelen)
+:receptionist:--(klant ontvangen)
+
+:ober:--(serveren)
+:ober:--(bestelling opnemen)
+
+:kok:--(sushi maken)
+
+
